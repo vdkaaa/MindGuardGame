@@ -1,0 +1,35 @@
+# PROJECT MINDGUARD — Reglas de Arquitectura
+
+## Stack
+Motor: Unity 6 LTS | Lenguaje: C# 10 | Render: URP | Audio: FMOD
+
+## Principios obligatorios
+- SOLID en cada clase nueva. Una clase = una responsabilidad.
+- Domain/ nunca importa UnityEngine ni Infrastructure/ ni Presentation/.
+- Toda comunicación entre sistemas: IEventBus (Observer).
+- Toda data de contenido: ScriptableObject. Sin hardcodear stats.
+- ObjectPool para enemigos, proyectiles y VFX. NUNCA Instantiate en Update.
+- Toda lógica de negocio tiene su interfaz antes de su implementación.
+
+## Patrones aplicados
+- State Machine: ciclo dia/noche (Core/StateMachine/)
+- Strategy: movimiento de enemigos, comportamiento de torres
+- Command: acciones de construccion (con Undo para el dia)
+- Object Pool: enemigos, particulas quimicas, proyectiles
+- Observer/EventBus: comunicacion entre Domain/ y Presentation/Infrastructure/
+- Service Locator: solo para servicios globales (Audio, Input, Save)
+
+## Convenciones C#
+- PascalCase: clases, metodos, propiedades
+- _camelCase: campos privados (_eventBus, _towerData)
+- Interfaces: prefix I (IEnemy, ITower)
+- ScriptableObjects: suffix SO (TowerDataSO)
+- Events: suffix Event como record (DreamDamagedEvent)
+
+## LO QUE CLAUDE NUNCA DEBE HACER
+- Poner logica de juego en MonoBehaviours directamente
+- Dependencias directas entre sistemas (siempre interfaz o EventBus)
+- FindObjectOfType o GetComponent en Update()
+- Hardcodear strings o valores numericos de gameplay
+- Instantiate/Destroy para enemigos o VFX sin pool
+
