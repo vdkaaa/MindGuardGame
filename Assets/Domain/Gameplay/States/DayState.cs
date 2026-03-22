@@ -4,11 +4,10 @@ namespace MindGuard.Domain.Gameplay.States
     using MindGuard.Core.StateMachine;
     using MindGuard.Core.EventBus;
     using MindGuard.Domain.Gameplay.Events;
+    using MindGuard.Domain.Gameplay;
 
     // TODO: Forward declaration - IEconomySystem will be defined in economy system module
     // using MindGuard.Domain.Economy;
-    // TODO: GameLoopController needs to be created - placeholder for now
-    public class GameLoopController { }
 
     /// <summary>
     /// State representing the day phase of the game loop.

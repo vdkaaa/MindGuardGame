@@ -4,6 +4,7 @@ namespace MindGuard.Domain.Gameplay.States
     using MindGuard.Core.StateMachine;
     using MindGuard.Core.EventBus;
     using MindGuard.Domain.Gameplay.Events;
+    using MindGuard.Domain.Gameplay;
 
     /// <summary>
     /// State representing the night phase of the game loop.
