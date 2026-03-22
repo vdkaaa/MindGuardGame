@@ -1,10 +1,9 @@
 namespace MindGuard.Domain.Gameplay.States
 {
-    using UnityEngine;
     using MindGuard.Core.StateMachine;
     using MindGuard.Core.EventBus;
+    using MindGuard.Core.Logging;
     using MindGuard.Domain.Gameplay.Events;
-    using MindGuard.Domain.Gameplay;
 
     /// <summary>
     /// State representing the night phase of the game loop.
@@ -13,17 +12,19 @@ namespace MindGuard.Domain.Gameplay.States
     public class NightState : IState<GameLoopController>
     {
         private readonly IEventBus _eventBus;
+        private readonly ILogger _logger;
 
-        public NightState(IEventBus eventBus)
+        public NightState(IEventBus eventBus, ILogger logger = null)
         {
             _eventBus = eventBus;
+            _logger = logger;
         }
 
         public void Enter(GameLoopController owner)
         {
-            Debug.Log("Night started");
+            _logger?.Log("Night started");
             
-            _eventBus.Publish(new NightStartedEvent { NightNumber = 1 });
+            _eventBus.Publish(new NightStartedEvent(1));
             // TODO: Replace with actual night number from game loop
         }
 
@@ -34,7 +35,7 @@ namespace MindGuard.Domain.Gameplay.States
 
         public void Exit(GameLoopController owner)
         {
-            Debug.Log("Night ended");
+            _logger?.Log("Night ended");
         }
     }
 }

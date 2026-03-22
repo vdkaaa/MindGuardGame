@@ -2,6 +2,7 @@ namespace MindGuard.Domain.Gameplay
 {
     using MindGuard.Core.StateMachine;
     using MindGuard.Core.EventBus;
+    using MindGuard.Core.Logging;
     using MindGuard.Domain.Gameplay.States;
     using MindGuard.Domain.Gameplay.Events;
 
@@ -12,6 +13,7 @@ namespace MindGuard.Domain.Gameplay
     public class GameLoopController
     {
         private readonly IEventBus _eventBus;
+        private readonly ILogger _logger;
         private StateMachine<GameLoopController> _stateMachine;
         private int _currentDay;
         private int _currentNight;
@@ -25,9 +27,11 @@ namespace MindGuard.Domain.Gameplay
         /// Initializes a new GameLoopController with an event bus.
         /// </summary>
         /// <param name="eventBus">The event bus for publish/subscribe events</param>
-        public GameLoopController(IEventBus eventBus)
+        /// <param name="logger">Optional logger for debug output</param>
+        public GameLoopController(IEventBus eventBus, ILogger logger = null)
         {
             _eventBus = eventBus;
+            _logger = logger;
             _currentDay = 0;
             _currentNight = 0;
             _isRunning = false;
@@ -46,7 +50,7 @@ namespace MindGuard.Domain.Gameplay
             _stateMachine = new StateMachine<GameLoopController>(this);
 
             // Start with the day state
-            var dayState = new DayState(_eventBus);
+            var dayState = new DayState(_eventBus, _logger);
             _stateMachine.ChangeState(dayState);
         }
 
@@ -68,7 +72,7 @@ namespace MindGuard.Domain.Gameplay
         public void GoToNight()
         {
             _currentNight++;
-            var nightState = new NightState(_eventBus);
+            var nightState = new NightState(_eventBus, _logger);
             _stateMachine.ChangeState(nightState);
         }
 
@@ -78,7 +82,7 @@ namespace MindGuard.Domain.Gameplay
         public void GoToDay()
         {
             _currentDay++;
-            var dayState = new DayState(_eventBus);
+            var dayState = new DayState(_eventBus, _logger);
             _stateMachine.ChangeState(dayState);
         }
 
@@ -89,7 +93,7 @@ namespace MindGuard.Domain.Gameplay
         public void EndRun(bool victory)
         {
             _isRunning = false;
-            var gameOverEvent = new GameOverEvent { Victory = victory };
+            var gameOverEvent = new GameOverEvent(victory);
             _eventBus.Publish(gameOverEvent);
         }
     }

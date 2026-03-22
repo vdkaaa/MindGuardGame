@@ -14,7 +14,7 @@ namespace MindGuard.Core.EventBus
         /// Suscribe un handler a eventos de tipo T.
         /// Si el handler ya estaba suscrito, se agregará nuevamente.
         /// </summary>
-        public void Subscribe<T>(Action<T> handler) where T : struct
+        public void Subscribe<T>(Action<T> handler)
         {
             if (handler == null)
                 return;
@@ -35,7 +35,7 @@ namespace MindGuard.Core.EventBus
         /// Desuscribe un handler de eventos de tipo T.
         /// Si el handler no estaba suscrito, no hace nada.
         /// </summary>
-        public void Unsubscribe<T>(Action<T> handler) where T : struct
+        public void Unsubscribe<T>(Action<T> handler)
         {
             if (handler == null)
                 return;
@@ -61,7 +61,7 @@ namespace MindGuard.Core.EventBus
         /// Publica un evento a todos los handlers suscritos de tipo T.
         /// Si no hay handlers suscritos, no hace nada y no lanza excepciones.
         /// </summary>
-        public void Publish<T>(T eventData) where T : struct
+        public void Publish<T>(T eventData)
         {
             var type = typeof(T);
 

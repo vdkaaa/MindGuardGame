@@ -3,6 +3,7 @@ namespace MindGuard.Bootstrap
     using UnityEngine;
     using MindGuard.Core.EventBus;
     using MindGuard.Core.ServiceLocator;
+    using MindGuard.Core.Logging;
 
     /// <summary>
     /// Bootstrapper del juego que inicializa todos los servicios base.
@@ -21,9 +22,11 @@ namespace MindGuard.Bootstrap
             // Crear instancias de los servicios base
             var eventBus = new EventBus();
             var serviceLocator = new ServiceLocator();
+            var logger = new UnityLogger();
 
-            // Registrar EventBus en el ServiceLocator
+            // Registrar servicios en el ServiceLocator
             serviceLocator.Register<IEventBus>(eventBus);
+            serviceLocator.Register<MindGuard.Core.Logging.ILogger>(logger);
 
             // Asignar el ServiceLocator como acceso global
             Services = serviceLocator;

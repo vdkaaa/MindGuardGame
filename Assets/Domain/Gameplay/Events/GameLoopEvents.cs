@@ -3,31 +3,20 @@ namespace MindGuard.Domain.Gameplay.Events
     /// <summary>
     /// Event published when the day phase starts.
     /// </summary>
-    public struct DayStartedEvent
-    {
-        public int DayNumber { get; set; }
-    }
+    public record DayStartedEvent(int DayNumber);
 
     /// <summary>
     /// Event published when the night phase starts.
     /// </summary>
-    public struct NightStartedEvent
-    {
-        public int NightNumber { get; set; }
-    }
+    public record NightStartedEvent(int NightNumber);
 
     /// <summary>
     /// Event published when a transition phase starts.
     /// </summary>
-    public struct TransitionStartedEvent
-    {
-    }
+    public record TransitionStartedEvent();
 
     /// <summary>
     /// Event published when the game ends.
     /// </summary>
-    public struct GameOverEvent
-    {
-        public bool Victory { get; set; }
-    }
+    public record GameOverEvent(bool Victory);
 }

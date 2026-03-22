@@ -1,10 +1,9 @@
 namespace MindGuard.Domain.Gameplay.States
 {
-    using UnityEngine;
     using MindGuard.Core.StateMachine;
     using MindGuard.Core.EventBus;
+    using MindGuard.Core.Logging;
     using MindGuard.Domain.Gameplay.Events;
-    using MindGuard.Domain.Gameplay;
 
     // TODO: Forward declaration - IEconomySystem will be defined in economy system module
     // using MindGuard.Domain.Economy;
@@ -16,19 +15,21 @@ namespace MindGuard.Domain.Gameplay.States
     public class DayState : IState<GameLoopController>
     {
         private readonly IEventBus _eventBus;
+        private readonly ILogger _logger;
         // TODO: private readonly IEconomySystem _economy;
 
-        public DayState(IEventBus eventBus)
+        public DayState(IEventBus eventBus, ILogger logger = null)
         {
             _eventBus = eventBus;
+            _logger = logger;
             // TODO: _economy = economy;
         }
 
         public void Enter(GameLoopController owner)
         {
-            Debug.Log("Day started");
+            _logger?.Log("Day started");
             
-            _eventBus.Publish(new DayStartedEvent { DayNumber = 1 });
+            _eventBus.Publish(new DayStartedEvent(1));
             // TODO: Replace with actual day number from game loop
         }
 
@@ -39,7 +40,7 @@ namespace MindGuard.Domain.Gameplay.States
 
         public void Exit(GameLoopController owner)
         {
-            Debug.Log("Day ended");
+            _logger?.Log("Day ended");
         }
     }
 }
