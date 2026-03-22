@@ -1,0 +1,17 @@
+{
+    "name": "MindGuard.Project",
+    "rootNamespace": "MindGuard",
+    "references": [
+        "MindGuard.Core",
+        "MindGuard.Domain"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
